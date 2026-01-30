@@ -105,8 +105,8 @@
     "react-dom": "https://esm.sh/react-dom@18.2.0",
     "react-dom/client": "https://esm.sh/react-dom@18.2.0/client",
     "react/jsx-runtime": "https://esm.sh/react@18.2.0/jsx-runtime",
-    "react-router-dom": "https://esm.sh/react-router-dom@6.22.3?external=react,react-dom",
-    "lucide-react": "https://esm.sh/lucide-react@0.473.0?external=react,react-dom",
+    "react-router-dom": "https://esm.sh/react-router-dom@6.22.3?deps=react@18.2.0,react-dom@18.2.0",
+    "lucide-react": "https://esm.sh/lucide-react@0.473.0?deps=react@18.2.0",
     "@google/genai": "https://esm.sh/@google/genai@1.38.0",
     "react-dom/": "https://esm.sh/react-dom@^19.2.4/",
     "react/": "https://esm.sh/react@^19.2.4/"
@@ -118,7 +118,7 @@
         const display = document.getElementById('error-display');
         if (display) {
           display.style.display = 'block';
-          display.innerText = 'Critical Error: ' + event.message + '\nAt: ' + event.filename + ':' + event.lineno;
+          display.innerText = 'Critical Error: ' + (event.message || 'Script Load Failure') + '\nAt: ' + (event.filename || 'Unknown') + ':' + (event.lineno || '0');
         }
       });
       window.addEventListener('unhandledrejection', function(event) {
