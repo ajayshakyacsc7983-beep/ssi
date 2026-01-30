@@ -7,7 +7,7 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <script>
-      // Force consistent process.env
+      // Shim for process.env
       window.process = { env: { API_KEY: "" } };
     </script>
     <style>
@@ -23,9 +23,7 @@
         margin: 0;
         overflow-x: hidden;
       }
-      .font-space {
-        font-family: 'Space Grotesk', sans-serif;
-      }
+      .font-space { font-family: 'Space Grotesk', sans-serif; }
       .glass {
         background: rgba(10, 10, 10, 0.75);
         backdrop-filter: blur(24px);
@@ -44,23 +42,20 @@
         box-shadow: 0 10px 40px -10px rgba(251, 191, 36, 0.4);
         transition: all 0.3s ease;
       }
-      /* Loading State */
       #root:empty::before {
         content: "";
         position: fixed;
         top: 50%;
         left: 50%;
         transform: translate(-50%, -50%);
-        width: 48px;
-        height: 48px;
+        width: 40px;
+        height: 40px;
         border: 3px solid rgba(251, 191, 36, 0.1);
         border-top: 3px solid var(--vantage-gold);
         border-radius: 50%;
         animation: spin 1s linear infinite;
       }
-      @keyframes spin {
-        to { transform: translate(-50%, -50%) rotate(360deg); }
-      }
+      @keyframes spin { to { transform: translate(-50%, -50%) rotate(360deg); } }
     </style>
     <script type="importmap">
 {
