@@ -7,8 +7,8 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <script>
-      // Shim for process.env to prevent crashes
-      window.process = window.process || { env: { API_KEY: "" } };
+      // Global process shim
+      window.process = { env: { API_KEY: "" } };
     </script>
     <style>
       :root {
@@ -32,17 +32,6 @@
         -webkit-backdrop-filter: blur(24px);
         border: 1px solid rgba(255, 255, 255, 0.05);
       }
-      .vantage-card {
-        background: linear-gradient(145deg, rgba(255, 255, 255, 0.04) 0%, rgba(255, 255, 255, 0.01) 100%);
-        backdrop-filter: blur(12px);
-        border: 1px solid rgba(255, 255, 255, 0.08);
-        transition: all 0.5s cubic-bezier(0.2, 0.8, 0.2, 1);
-      }
-      .vantage-card:hover {
-        border-color: var(--vantage-cyan);
-        transform: translateY(-8px);
-        box-shadow: 0 40px 80px -20px rgba(0, 0, 0, 0.8);
-      }
       .gradient-vantage {
         background: linear-gradient(135deg, #fbbf24, #22d3ee, #818cf8);
         -webkit-background-clip: text;
@@ -55,46 +44,22 @@
         box-shadow: 0 10px 40px -10px rgba(251, 191, 36, 0.4);
         transition: all 0.3s ease;
       }
-      .btn-vantage:hover {
-        transform: scale(1.02);
-        box-shadow: 0 15px 50px -10px rgba(251, 191, 36, 0.6);
-      }
-      
-      /* Loading Spinner */
+      /* Initial Loading Spinner */
       #root:empty::before {
         content: "";
         position: fixed;
         top: 50%;
         left: 50%;
         transform: translate(-50%, -50%);
-        width: 48px;
-        height: 48px;
-        border: 2px solid rgba(255,255,255,0.05);
-        border-top: 2px solid var(--vantage-gold);
+        width: 40px;
+        height: 40px;
+        border: 3px solid rgba(251, 191, 36, 0.1);
+        border-top: 3px solid var(--vantage-gold);
         border-radius: 50%;
-        animation: spin 0.8s cubic-bezier(0.4, 0, 0.2, 1) infinite;
-        z-index: 9999;
+        animation: spin 1s linear infinite;
       }
       @keyframes spin {
         to { transform: translate(-50%, -50%) rotate(360deg); }
-      }
-
-      #error-display {
-        position: fixed;
-        bottom: 20px;
-        left: 20px;
-        right: 20px;
-        background: #1e1b4b;
-        color: #f43f5e;
-        padding: 20px;
-        border-radius: 16px;
-        font-family: monospace;
-        font-size: 12px;
-        display: none;
-        z-index: 10000;
-        border: 1px solid #312e81;
-        white-space: pre-wrap;
-        box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
       }
     </style>
     <script type="importmap">
@@ -112,26 +77,9 @@
   }
 }
 </script>
-    <script>
-      window.addEventListener('error', function(event) {
-        const display = document.getElementById('error-display');
-        if (display) {
-          display.style.display = 'block';
-          display.innerText = 'Critical Error: ' + (event.message || 'Script Load Failure') + '\nAt: ' + (event.filename || 'Unknown') + ':' + (event.lineno || '0');
-        }
-      });
-      window.addEventListener('unhandledrejection', function(event) {
-        const display = document.getElementById('error-display');
-        if (display) {
-          display.style.display = 'block';
-          display.innerText = 'Unhandled Promise Rejection: ' + event.reason;
-        }
-      });
-    </script>
   </head>
   <body>
     <div id="root"></div>
-    <div id="error-display"></div>
     <script type="module" src="./index.tsx"></script>
   </body>
 </html>
