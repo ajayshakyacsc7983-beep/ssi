@@ -1,13 +1,13 @@
 
 import React from 'react';
 import { HashRouter, Routes, Route } from 'react-router-dom';
-import Layout from './components/Layout.tsx';
-import Home from './components/Home.tsx';
-import ThumbnailMaker from './components/ThumbnailMaker.tsx';
-import ImageGenerator from './components/ImageGenerator.tsx';
-import PhotoEnhancer from './components/PhotoEnhancer.tsx';
-import VideoGenerator from './components/VideoGenerator.tsx';
-import ImageEditor from './components/ImageEditor.tsx';
+import Layout from './components/Layout';
+import Home from './components/Home';
+import ThumbnailMaker from './components/ThumbnailMaker';
+import ImageGenerator from './components/ImageGenerator';
+import PhotoEnhancer from './components/PhotoEnhancer';
+import VideoGenerator from './components/VideoGenerator';
+import ImageEditor from './components/ImageEditor';
 
 const App: React.FC = () => {
   return (
