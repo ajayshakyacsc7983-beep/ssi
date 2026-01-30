@@ -42,6 +42,11 @@
         box-shadow: 0 10px 40px -10px rgba(251, 191, 36, 0.4);
         transition: all 0.3s ease;
       }
+      .vantage-card {
+        background: rgba(255, 255, 255, 0.03);
+        backdrop-filter: blur(20px);
+        border: 1px solid rgba(255, 255, 255, 0.05);
+      }
       #root:empty::before {
         content: "";
         position: fixed;
@@ -75,6 +80,5 @@
   </head>
   <body>
     <div id="root"></div>
-    <script type="module" src="./index.tsx"></script>
   </body>
 </html>
