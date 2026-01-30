@@ -4,89 +4,77 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Nexus Studio | The Ultimate AI Creative Hub</title>
+    <title>Aura AI Studio | The Elite Creative Suite</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <style>
       :root {
-        --accent-cyan: #22d3ee;
-        --accent-purple: #a855f7;
-        --bg-dark: #020617;
+        --aura-cyan: #22d3ee;
+        --aura-indigo: #6366f1;
+        --bg-deep: #02040a;
       }
       body {
         font-family: 'Inter', sans-serif;
-        background-color: var(--bg-dark);
+        background-color: var(--bg-deep);
         color: #f8fafc;
         overflow-x: hidden;
       }
-      h1, h2, h3, h4, .font-space {
+      .font-space {
         font-family: 'Space Grotesk', sans-serif;
       }
       .glass {
-        background: rgba(15, 23, 42, 0.7);
-        backdrop-filter: blur(16px);
+        background: rgba(8, 12, 24, 0.7);
+        backdrop-filter: blur(20px);
+        border: 1px solid rgba(255, 255, 255, 0.05);
+      }
+      .aura-card {
+        background: linear-gradient(145deg, rgba(255, 255, 255, 0.03) 0%, rgba(255, 255, 255, 0.01) 100%);
+        backdrop-filter: blur(12px);
         border: 1px solid rgba(255, 255, 255, 0.08);
+        transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
       }
-      .glass-card {
-        background: linear-gradient(135deg, rgba(255, 255, 255, 0.05) 0%, rgba(255, 255, 255, 0.01) 100%);
-        backdrop-filter: blur(10px);
-        border: 1px solid rgba(255, 255, 255, 0.1);
-        transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+      .aura-card:hover {
+        border-color: rgba(34, 211, 238, 0.4);
+        transform: translateY(-8px) scale(1.02);
+        box-shadow: 0 30px 60px -12px rgba(0, 0, 0, 0.6);
       }
-      .glass-card:hover {
-        border-color: rgba(34, 211, 238, 0.3);
-        transform: translateY(-5px);
-        box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
-      }
-      .gradient-text {
-        background: linear-gradient(to right, #22d3ee, #818cf8, #d946ef);
+      .gradient-aura {
+        background: linear-gradient(135deg, #22d3ee, #6366f1, #d946ef);
         -webkit-background-clip: text;
         -webkit-text-fill-color: transparent;
       }
-      .btn-primary {
+      .aura-button {
         background: linear-gradient(to right, #0ea5e9, #6366f1);
-        box-shadow: 0 4px 20px rgba(99, 102, 241, 0.4);
-        transition: all 0.3s ease;
+        box-shadow: 0 10px 30px -5px rgba(99, 102, 241, 0.4);
+        transition: all 0.4s ease;
       }
-      .btn-primary:hover {
-        box-shadow: 0 4px 30px rgba(99, 102, 241, 0.6);
-        transform: scale(1.05);
+      .aura-button:hover {
+        box-shadow: 0 15px 40px -5px rgba(99, 102, 241, 0.7);
+        transform: translateY(-2px);
       }
-      .floating {
-        animation: float 6s ease-in-out infinite;
-      }
-      @keyframes float {
-        0%, 100% { transform: translateY(0px); }
-        50% { transform: translateY(-20px); }
-      }
-      .pulse-slow {
-        animation: pulse 8s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+      .pulse-aura {
+        animation: pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite;
       }
       @keyframes pulse {
         0%, 100% { opacity: 0.1; }
-        50% { opacity: 0.3; }
+        50% { opacity: 0.25; }
       }
-      /* Custom Scrollbar */
-      ::-webkit-scrollbar {
-        width: 8px;
+      /* Loading Spinner for deployment reassurance */
+      #root:empty::before {
+        content: "";
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        width: 40px;
+        height: 40px;
+        border: 3px solid rgba(255,255,255,0.1);
+        border-top-color: #22d3ee;
+        border-radius: 50%;
+        animation: spin 1s linear infinite;
       }
-      ::-webkit-scrollbar-track {
-        background: #020617;
-      }
-      ::-webkit-scrollbar-thumb {
-        background: #1e293b;
-        border-radius: 10px;
-      }
-      ::-webkit-scrollbar-thumb:hover {
-        background: #334155;
-      }
-      
-      .auth-modal-overlay {
-        animation: fadeIn 0.3s ease-out;
-      }
-      @keyframes fadeIn {
-        from { opacity: 0; }
-        to { opacity: 1; }
+      @keyframes spin {
+        to { transform: translate(-50%, -50%) rotate(360deg); }
       }
     </style>
     <script type="importmap">
@@ -104,5 +92,7 @@
   </head>
   <body>
     <div id="root"></div>
+    <!-- Explicit module loading to prevent blank pages -->
+    <script type="module" src="index.tsx"></script>
   </body>
 </html>
