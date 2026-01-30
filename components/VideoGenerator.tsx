@@ -1,4 +1,3 @@
-
 import React, { useState, useRef } from 'react';
 import { Upload, Play, Film, Sparkles, AlertCircle, RefreshCcw, Download, Info, Key } from 'lucide-react';
 import { GoogleGenAI } from "@google/genai";
@@ -34,10 +33,13 @@ const VideoGenerator: React.FC = () => {
   const generateVideo = async () => {
     if (!prompt.trim() && !sourceImage) return;
 
-    // Check for API Key first
-    const hasKey = await (window as any).aistudio.hasSelectedApiKey();
-    if (!hasKey) {
-      await (window as any).aistudio.openSelectKey();
+    // Check for API Key selection for Veo models
+    if (window.aistudio && typeof window.aistudio.hasSelectedApiKey === 'function') {
+      const hasKey = await window.aistudio.hasSelectedApiKey();
+      if (!hasKey) {
+        await window.aistudio.openSelectKey();
+        // Proceeding after openSelectKey as per instructions (assuming success)
+      }
     }
 
     setGenerating(true);
@@ -51,6 +53,7 @@ const VideoGenerator: React.FC = () => {
     }, 15000);
 
     try {
+      // Always create a new instance right before the call to get the latest key
       const ai = new GoogleGenAI({ apiKey: process.env.API_KEY || '' });
       
       const config: any = {
@@ -86,7 +89,9 @@ const VideoGenerator: React.FC = () => {
     } catch (err: any) {
       console.error(err);
       if (err.message?.includes("Requested entity was not found")) {
-        setError("Please ensure you have selected a valid API key with billing enabled for Veo.");
+        setError("Please ensure you have selected a valid API key with billing enabled for Veo models.");
+        // If it fails with entity not found, prompt user to select key again
+        if (window.aistudio) window.aistudio.openSelectKey();
       } else {
         setError(err.message || "Something went wrong during video generation.");
       }
@@ -107,7 +112,6 @@ const VideoGenerator: React.FC = () => {
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
-        {/* Controls */}
         <div className="lg:col-span-4 space-y-6">
           <div className="glass p-8 rounded-[2rem] border border-slate-800 shadow-2xl space-y-8">
             <div className="space-y-3">
@@ -154,7 +158,7 @@ const VideoGenerator: React.FC = () => {
                       : 'bg-slate-900 border-slate-800 text-slate-500 hover:text-slate-300'
                     }`}
                   >
-                    {ratio === '16:9' ? 'Landscape (16:9)' : 'Portrait (9:16)'}
+                    {ratio}
                   </button>
                 ))}
               </div>
@@ -178,7 +182,6 @@ const VideoGenerator: React.FC = () => {
           </div>
         </div>
 
-        {/* Output Viewport */}
         <div className="lg:col-span-8">
           <div className="glass rounded-[2.5rem] border border-slate-800 overflow-hidden shadow-3xl bg-black">
             <div className="aspect-video relative flex items-center justify-center">
@@ -211,16 +214,6 @@ const VideoGenerator: React.FC = () => {
                   <p className="font-space font-black text-xl uppercase tracking-widest opacity-20">No Video Rendered</p>
                 </div>
               )}
-
-              {/* Badges */}
-              {videoUrl && (
-                <div className="absolute top-8 left-8 flex gap-2">
-                  <div className="glass px-4 py-2 rounded-xl text-[10px] font-black text-fuchsia-400 border border-fuchsia-500/30 uppercase tracking-widest">Veo 3.1 Pro</div>
-                  <button onClick={() => window.open(videoUrl)} className="glass px-4 py-2 rounded-xl text-[10px] font-black text-white hover:bg-white/10 transition-colors uppercase tracking-widest flex items-center gap-2">
-                    <Download className="w-3 h-3" /> Save
-                  </button>
-                </div>
-              )}
             </div>
           </div>
 
@@ -231,7 +224,7 @@ const VideoGenerator: React.FC = () => {
                 <p className="text-sm font-bold text-red-400">{error}</p>
                 {error.includes("API key") && (
                    <button 
-                    onClick={() => (window as any).aistudio.openSelectKey()}
+                    onClick={() => window.aistudio.openSelectKey()}
                     className="flex items-center gap-2 bg-red-500 text-white px-4 py-2 rounded-xl text-xs font-black uppercase tracking-widest"
                   >
                     <Key className="w-3.5 h-3.5" /> Re-select API Key
