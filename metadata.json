@@ -1,0 +1,7 @@
+{
+  "name": "VisionAI Studio",
+  "description": "A modern 3-in-1 AI creative suite for image generation, thumbnail design, and photo enhancement.",
+  "requestFramePermissions": [
+    "camera"
+  ]
+}
